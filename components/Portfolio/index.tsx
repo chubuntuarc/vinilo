@@ -3,6 +3,11 @@ import { Grid, Text } from "@nextui-org/react";
 import ViniloCard from "./ViniloCard";
 import Link from "next/link";
 
+type WishlistItem = {
+  title: string;
+  url: string;
+};
+
 const Portfolio = () => {
   const [data, setData] = useState([]);
   const [wishlist, setWishlist] = useState([]);
@@ -49,7 +54,7 @@ const Portfolio = () => {
           Whishlist
         </Text>
       </Grid>
-      {wishlist.map((item, index) => (
+      {wishlist.map((item: WishlistItem, index) => (
         <Grid xs={12}>
           <Link href={item.url}>{item.title}</Link>
         </Grid>
