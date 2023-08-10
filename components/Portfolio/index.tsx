@@ -1,7 +1,23 @@
+import React, { useState, useEffect } from "react";
 import { Grid, Text } from "@nextui-org/react";
-import PortfolioCard from "./PortfolioCard";
+import ViniloCard from "./ViniloCard";
+import Link from "next/link";
 
 const Portfolio = () => {
+  const [data, setData] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
+
+  useEffect(() => {
+    fetch("./collection.json")
+      .then((response) => response.json())
+      .then((jsonData) => setData(jsonData))
+      .catch((error) => console.error("Error fetching data:", error));
+    fetch("./wishlist.json")
+      .then((response) => response.json())
+      .then((jsonData) => setWishlist(jsonData))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
   return (
     <Grid.Container gap={2} justify="center" css={{ padding: "1rem 4rem" }}>
       <Grid xs={12}>
@@ -13,23 +29,33 @@ const Portfolio = () => {
           }}
           weight="bold"
         >
-          My work
+          My collection
         </Text>
       </Grid>
-      <Grid sm={6}>
-        <PortfolioCard company="Eddi" />
+      {data.map((item, index) => (
+        <Grid sm={6} xs={12}>
+          <ViniloCard key={index} item={item} />
+        </Grid>
+      ))}
+      <Grid xs={12}>
+        <Text
+          h1
+          size={20}
+          css={{
+            textGradient: "45deg, $yellow600 -20%, $red600 100%",
+          }}
+          weight="bold"
+        >
+          Whishlist
+        </Text>
       </Grid>
-      <Grid sm={6} xs={12}>
-        <PortfolioCard company="Flex" />
-      </Grid>
-      <Grid sm={6}>
-        <PortfolioCard company="FITB" />
-      </Grid>
-      <Grid sm={6}>
-        <PortfolioCard company="WFR" />
-      </Grid>
+      {wishlist.map((item, index) => (
+        <Grid xs={12}>
+          <Link href={item.url}>{item.title}</Link>
+        </Grid>
+      ))}
     </Grid.Container>
   );
-}
+};
 
-export default Portfolio
+export default Portfolio;

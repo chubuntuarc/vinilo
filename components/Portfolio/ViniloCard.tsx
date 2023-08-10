@@ -1,51 +1,20 @@
 import { Card, Col, Row, Button, Text } from "@nextui-org/react";
 
 interface Props {
-  company: string;
+  item: any
 }
 
-const companiesData = {
-  Eddi: {
-    altText: "Eddi card",
-    description: "Frontend development with NextJS",
-    name: "Eddi",
-    thumbnail: "/eddi.png",
-    url: "https://www.edditheapp.com/",
-  },
-  FITB: {
-    altText: "Food in the box card",
-    description: "Shopify store managment / custom app development.",
-    name: "Food in the Box",
-    thumbnail: "/fitb.png",
-    url: "https://www.foodinthebox.com/",
-  },
-  Flex: {
-    altText: "Flex card",
-    description: "Migration from Shopify store to a headless ecommerce.",
-    name: "Flex",
-    thumbnail: "/flex.png",
-    url: "https://www.flexfits.com/",
-  },
-  WFR: {
-    altText: "WFR card",
-    description: "Shopify store frontend development.",
-    name: "We feed raw",
-    thumbnail: "/wfr.png",
-    url: "https://www.wefeedraw.com/",
-  },
-};
-
-const PortfolioCard = ({company}: Props) => {
-  const Company = companiesData[company as keyof typeof companiesData];
+const ViniloCard = ({ item }: Props) => {
+  console.log(item)
   return (
     <Card css={{ w: "100%", h: "400px" }}>
       <Card.Body css={{ p: 0 }}>
         <Card.Image
-          src={Company.thumbnail}
+          src={item.cover}
           objectFit="cover"
           width="100%"
           height="100%"
-          alt={Company.altText}
+          alt={item.title}
         />
       </Card.Body>
       <Card.Footer
@@ -63,10 +32,10 @@ const PortfolioCard = ({company}: Props) => {
             <Row>
               <Col>
                 <Text color="#d1d1d1" size={20}>
-                  {Company.name}
+                  {item.title}
                 </Text>
                 <Text color="#d1d1d1" size={16} css={{ width: "120%" }}>
-                  {Company.description}
+                  {item.artist}
                 </Text>
               </Col>
             </Row>
@@ -78,7 +47,7 @@ const PortfolioCard = ({company}: Props) => {
                 auto
                 rounded
                 css={{ color: "#94f9f0", bg: "#94f9f026" }}
-                onClick={() => window.open(Company.url)}
+                onClick={() => window.open(item.url)}
               >
                 <Text
                   css={{ color: "inherit" }}
@@ -97,4 +66,4 @@ const PortfolioCard = ({company}: Props) => {
   );
 };
 
-export default PortfolioCard;
+export default ViniloCard;
